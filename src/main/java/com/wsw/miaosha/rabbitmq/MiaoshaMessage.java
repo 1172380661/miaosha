@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author: wsw
- * @Date: 2019/9/20 14:12
+ * @Date: 2019/6/20 14:12
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MiaoshaMessage {
+    private String id;
     private User user;
     private Long miaoshaGoodsId;
 }
