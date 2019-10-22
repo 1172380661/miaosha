@@ -1,6 +1,5 @@
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
@@ -33,3 +32,6 @@ build/
 ### spring ###
 mvnw
 mvnw.cmd
+
+### maven ###
+.mvn/
