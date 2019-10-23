@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author: wsw
@@ -54,7 +55,7 @@ public class MiaoshaController implements InitializingBean {
             return new Result(CodeMsg.STOCK_ERROR);
         }
         //异步执行秒杀
-        MiaoshaMessage miaoshaMessage = new MiaoshaMessage(user, miaoshaGoodsId);
+        MiaoshaMessage miaoshaMessage = new MiaoshaMessage(UUID.randomUUID().toString().replace("-", ""),user, miaoshaGoodsId);
         String msg = JSON.toJSONString(miaoshaMessage);
         sender.miaoshaSender(msg);
         return new Result(CodeMsg.QUEUING);

@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @Author: wsw
@@ -32,7 +30,7 @@ public class MQSender implements RabbitTemplate.ConfirmCallback, RabbitTemplate.
         rabbitTemplate.setReturnCallback(this);
     }
 
-    public void miaoshaSender(String msg) throws IOException, TimeoutException {
+    public void miaoshaSender(String msg) {
         CorrelationData correlationData = new CorrelationData();
         msgCache.put(correlationData, msg);
         rabbitTemplate.convertAndSend("error", MQConfig.MIAOSHA_QUEUE, msg, correlationData);
