@@ -6,6 +6,7 @@ import com.wsw.miaosha.redis.RedisService;
 import com.wsw.miaosha.service.GoodsService;
 import com.wsw.miaosha.vo.GoodsVo;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +23,13 @@ import java.util.List;
 @RequestMapping(value = "/goods")
 public class GoodsController implements InitializingBean {
 
+
     private GoodsService goodsService;
 
     private RedisService redisService;
 
-    public GoodsController(GoodsService goodsService, RedisService redisService) {
+    @Autowired
+    public GoodsController(GoodsService goodsService,RedisService redisService) {
         this.goodsService = goodsService;
         this.redisService = redisService;
     }
@@ -70,7 +73,6 @@ public class GoodsController implements InitializingBean {
         model.addAttribute("miaoshaStatus", miaoshaStatus);
         return "goods_detail";
     }
-
 
     @Override
     public void afterPropertiesSet() {

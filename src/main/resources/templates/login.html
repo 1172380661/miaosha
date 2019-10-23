@@ -84,16 +84,20 @@
     function doLogin() {
         g_showLoading();
 
+        var inputPass = $("#password").val();
+        var str = inputPass+g_passsword_salt;
+        var password = md5(str);
+
         $.ajax({
             url: "/login/do_login",
             type: "POST",
             data: {
                 mobile: $("#mobile").val(),
-                password: $("#password").val()
+                password: password
             },
             success: function (data) {
                 layer.closeAll();
-                if (data.code == 0) {
+                if (data.code === 0) {
                     layer.msg("成功");
                     window.location.href = "/goods/to_goods";
                 } else {

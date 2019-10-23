@@ -5,9 +5,6 @@ import com.wsw.miaosha.result.Result;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -16,13 +13,9 @@ import java.util.List;
  * @Author: wsw
  * @Date: 2019/8/27 9:31
  */
-
-@ControllerAdvice
-@ResponseBody
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = {Exception.class})
-    public Result exceptionHandler(Exception e) {
+    public static Result exceptionHandler(Throwable e) {
         e.printStackTrace();
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;

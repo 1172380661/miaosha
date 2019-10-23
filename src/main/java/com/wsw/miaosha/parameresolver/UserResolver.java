@@ -4,6 +4,7 @@ import com.wsw.miaosha.model.User;
 import com.wsw.miaosha.redis.RedisService;
 import com.wsw.miaosha.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -29,7 +30,8 @@ public class UserResolver implements HandlerMethodArgumentResolver {
 
     private RedisService redisService;
 
-    public UserResolver(UserService userService, RedisService redisService) {
+    @Autowired
+    public UserResolver(UserService userService,RedisService redisService) {
         this.userService = userService;
         this.redisService = redisService;
     }

@@ -6,6 +6,7 @@ import com.wsw.miaosha.exception.GlobalException;
 import com.wsw.miaosha.model.User;
 import com.wsw.miaosha.redis.RedisService;
 import com.wsw.miaosha.result.CodeMsg;
+import com.wsw.miaosha.util.MD5Util;
 import com.wsw.miaosha.vo.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,13 @@ import java.util.UUID;
 @Service
 public class UserService {
 
+
     private UserDao userDao;
 
     private RedisService redisService;
 
     @Autowired
-    public UserService(UserDao userDao, RedisService redisService) {
+    public UserService(UserDao userDao,RedisService redisService) {
         this.userDao = userDao;
         this.redisService = redisService;
     }
@@ -40,15 +42,16 @@ public class UserService {
         if (loginVo == null) {
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
-        Long id = loginVo.getMobile();
-        User user = userDao.getById(id);
+        Long username = loginVo.getMobile();
+        User user = userDao.getByUserName(username);
         if (user == null) {
             throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
         }
-        if (!loginVo.getPassword().equals(user.getPassword())) {
+        String salt = user.getSalt();
+        if (!MD5Util.formPassToDBPass(loginVo.getPassword(),salt).equals(user.getPassword())) {
             throw new GlobalException(CodeMsg.PASSWORD_ERROR);
         }
-        String token = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString().replace("-","");
         addCookie(response, token, user);
         return token;
     }

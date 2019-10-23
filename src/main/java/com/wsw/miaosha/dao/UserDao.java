@@ -18,10 +18,10 @@ public interface UserDao {
     /**
      * 根据userId获取user
      *
-     * @param id userId
+     * @param username userId
      * @return user
      */
-    @Select("select * from user where id = #{id}")
-    User getById(@Param("id") Long id);
+    @Select("select * from user where username = #{username}")
+    User getByUserName(@Param("username") Long username);
 
 }

@@ -78,7 +78,12 @@
         var timeout;
         if (remainSeconds > 0) {//秒杀还没开始，倒计时
             $("#buyButton").attr("disabled", true);
-        } else if (remainSeconds === 0) {//秒杀进行中
+            timeout = setTimeout(function(){
+                $("#countDown").text(remainSeconds - 1);
+                $("#remainSeconds").val(remainSeconds - 1);
+                countDown();
+            },1000);
+        } else if (remainSeconds == 0) {//秒杀进行中
             $("#buyButton").attr("disabled", false);
             if (timeout) {
                 clearTimeout(timeout);

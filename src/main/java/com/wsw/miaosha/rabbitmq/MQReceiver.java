@@ -15,12 +15,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class MQReceiver {
 
-    @Autowired
     private MiaoshaService miaoshaService;
 
-    @Autowired
     private RedisService redisService;
 
+    @Autowired
+    public MQReceiver(MiaoshaService miaoshaService,RedisService redisService) {
+        this.miaoshaService = miaoshaService;
+        this.redisService = redisService;
+    }
 
     @RabbitListener(queues = MQConfig.MIAOSHA_QUEUE)
     public void miaoshaQueueReceiver(String msg) {
